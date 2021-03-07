@@ -10,6 +10,10 @@ class Publisher {
     std::string         bus_name;
 
 public:
+    Publisher(const Publisher&) = delete;
+
+    Publisher& operator=(const Publisher&) = delete;
+
     Publisher(
         const DBusBusType& arg_bus_type,
         const std::string& arg_bus_name

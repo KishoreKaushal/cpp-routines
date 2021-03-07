@@ -12,6 +12,9 @@ class Subscriber {
     std::string&    bus_interface;
 
 public:
+    Subscriber(const Subscriber&) = delete;
+
+    Subscriber& operator=(const Subscriber&) = delete;
 
     Subscriber(
         const DBusBusType&  arg_bus_type,
