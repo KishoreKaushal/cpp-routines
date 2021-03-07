@@ -32,7 +32,7 @@ public:
         run();
     }
 
-    bool is_stop_requested(int timeout_in_ms = 0) const {
+    bool is_stop_requested(int timeout_in_ms = 100) const {
         std::chrono::milliseconds t(timeout_in_ms);
         return (future_obj.wait_for(t) == std::future_status::ready);
     }

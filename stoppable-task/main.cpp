@@ -11,7 +11,7 @@ public:
     Speak& operator=(const Speak&) = delete;
 
     void run() override {
-        std::cout << count << " -- speaking ... " << std::endl;
+        std::cout << ++count << " -- speaking ... " << std::endl;
     }
 };
 
@@ -20,6 +20,7 @@ int main() {
 
     std::unique_ptr<Speak> spk = std::make_unique<Speak>();
 
+//    spk->request_stop();
     do {
         (*spk)();
         if (--i <= 0) {
