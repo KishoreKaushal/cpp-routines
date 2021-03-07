@@ -8,8 +8,8 @@
 class Subscriber {
     DBusBusType     bus_type;
     DBusConnection* bus_conn;
-    std::string&    bus_name;
-    std::string&    bus_interface;
+    std::string     bus_name;
+    std::string     bus_interface;
 
 public:
     Subscriber(const Subscriber&) = delete;
