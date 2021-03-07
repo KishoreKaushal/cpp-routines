@@ -70,6 +70,8 @@ CTestTestfile.cmake
 _deps
 CMakeUserPresets.json
 
+build/
+
 ### CMake Patch ###
 # External projects
 *-prefix/
