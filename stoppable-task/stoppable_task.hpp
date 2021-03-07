@@ -9,7 +9,7 @@ class StoppableTask {
 
 public:
 
-    StoppableTask();
+    StoppableTask() : future_obj(exit_signal.get_future()) {}
 
     StoppableTask(const StoppableTask&) = delete;
     
@@ -17,11 +17,18 @@ public:
 
     virtual void run() = 0;
 
-    virtual void operator()();
+    virtual void operator()() {
+        run();
+    }
 
-    bool is_stop_requested(int timeout_in_ms = 0) const;
+    bool is_stop_requested(int timeout_in_ms = 0) const {
+        std::chrono::milliseconds t(timeout_in_ms);
+        return (future_obj.wait_for(t) == std::future_status::ready);
+    }
 
-    void request_stop();
+    void request_stop() {
+        exit_signal.set_value();
+    }
 };
 
 #endif
