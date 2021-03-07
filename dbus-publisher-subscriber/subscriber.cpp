@@ -76,28 +76,28 @@ std::unique_ptr<char[]> Subscriber::consume(
             msg,
             bus_interface.c_str(),
             arg_signal.c_str()
-        )) {
-            if (not ::dbus_message_get_args(
-                msg, 
-                &err,
-                DBUS_TYPE_ARRAY,
-                DBUS_TYPE_BYTE,
-                buff,
-                &receive_buff_size,
-                DBUS_TYPE_INVALID
-            ) && receive_buff_size != 0) {
-                return nullptr; // DBUS_HANDLER_RESULT_NOT_YET_HANDLED
-            }
-
-            uptr_buff.reset(new char[receive_buff_size]);
-
-            memcpy(uptr_buff.get(), buff, receive_buff_size);
-
-            get_payload_size = receive_buff_size;
+    )) {
+        if (not ::dbus_message_get_args(
+            msg, 
+            &err,
+            DBUS_TYPE_ARRAY,
+            DBUS_TYPE_BYTE,
+            buff,
+            &receive_buff_size,
+            DBUS_TYPE_INVALID
+        ) && receive_buff_size != 0) {
+            return nullptr; // DBUS_HANDLER_RESULT_NOT_YET_HANDLED
         }
 
-        ::dbus_error_free(&err);
-        ::dbus_message_unref(msg);
+        uptr_buff.reset(new char[receive_buff_size]);
 
-        return std::move(uptr_buff);
+        memcpy(uptr_buff.get(), buff, receive_buff_size);
+
+        get_payload_size = receive_buff_size;
     }
+
+    ::dbus_error_free(&err);
+    ::dbus_message_unref(msg);
+
+    return std::move(uptr_buff);
+}
